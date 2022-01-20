@@ -73,3 +73,107 @@ type Animal2 = { name: string; age: number };
 
 let 동물: Animal = "kim";
 let 동물2: Animal2 = { name: "kim", age: 30 };
+
+// const변수는 등호로 재할당만 막는 역할이지 const로 담은 object수정은 자유롭게 가능
+const 출생지역 = { region: "seoul" };
+출생지역.region = "busan";
+
+type Girlfriend = {
+	// readonly name: string; //수정 불가
+	name?: string; //수정 불가 ?는 string | undefined
+};
+
+const 여친: Girlfriend = {
+	name: "카오",
+};
+// 여친.name = "유리";
+
+type Name22 = string;
+type Age22 = number;
+
+type Person = Name | Age22;
+
+type PositionX = { x: number };
+type PositionY = { y: number };
+
+type NewType = PositionX & PositionY; // { x: number ,y: number }
+
+let position: NewType = { x: 10, y: 20 };
+
+//////////// Literal Types
+
+let 이름7: 123;
+
+이름7 = 123;
+
+function 리턴제한(a: "hello"): 1 | 0 {
+	return 1;
+}
+function 대결(a: "가위" | "바위" | "보"): ("가위" | "바위" | "보")[] {
+	return ["가위"];
+}
+
+대결("가위");
+
+// var 자료 = {
+// 	name: "kim",
+// };
+//해결
+var 자료 = {
+	name: "kim",
+} as const; // 타입지정을 literal type지정 알아서 해주셈 , 즉 name의 타입을 kim타입으로 해주라 , readonly 기능도 포함
+
+//여기서 kim은 자료형이 아닌 타입이다
+function 내함수(a: "kim") {}
+// 내함수(자료.name) 에러 : 자료.name은 string 타입이니깐
+
+내함수(자료.name);
+
+//////////////////// methods type alias
+// 함수를 만들떄 타입지정해주기
+type 함수타입 = (a: string) => number;
+let 함수표현식: 함수타입 = function (a) {
+	return 10;
+};
+
+type Member1 = {
+	name: string;
+	plusOne: (x: number) => number;
+	changeName: () => void;
+};
+
+let 회원정보: Member1 = {
+	name: "kim",
+	plusOne(a) {
+		return a + 1;
+	},
+	changeName: () => {},
+};
+회원정보.plusOne(1);
+
+//문자 제거
+// - cutZero()라는 함수를 만듭시다. 이 함수는 문자를 하나 입력하면 맨 앞에 '0' 문자가 있으면 제거하고 문자 type으로 return 해줍니다.
+// - removeDash()라는 함수를 만듭시다. 이 함수는 문자를 하나 입력하면 대시기호 '-' 가 있으면 전부 제거해주고 그걸 숫자 type으로 return 해줍니다.
+type CutType = (x: string) => string;
+
+let cutZero: CutType = function (x) {
+	let result = x.replace(/^0+/, "");
+	return result;
+};
+function removeDash(x: string): number {
+	let result = x.replace(/-/g, "");
+	return parseFloat(result);
+}
+// 첫째는 문자, 둘째는 함수, 셋째는 함수
+// 1. 첫째 파라미터를 둘째 파라미터 (함수)에 파라미터로 집어넣어줍니다.
+// 2. 둘째 파라미터 (함수)에서 return된 결과를 셋째 파라미터(함수)에 집어넣어줍니다.
+// 3. 셋째 파라미터 (함수)에서 return된 결과를 콘솔창에 출력해줍니다.
+type 함수타입1 = (a: string) => string;
+type 함수타입2 = (a: string) => number;
+
+function 만들함수(a: string, func1: 함수타입1, func2: 함수타입2) {
+	let result = func1(a);
+	let result2 = func2(result);
+	console.log(result2);
+}
+만들함수("010-1111-2222", cutZero, removeDash); //1011112222 출력잘됨
