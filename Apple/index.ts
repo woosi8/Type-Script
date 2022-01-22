@@ -177,3 +177,33 @@ function 만들함수(a: string, func1: 함수타입1, func2: 함수타입2) {
 	console.log(result2);
 }
 만들함수("010-1111-2222", cutZero, removeDash); //1011112222 출력잘됨
+
+////////// TypeScript Dom 조작
+// 1.
+let 제목 = document.querySelector("#title");
+// if (제목 != null) {
+// 	제목.innerHTML = "반가워요";
+// }
+
+// 2.
+if (제목 instanceof Element) {
+	//instanceof class명 : 제목이 Element의 자식 instace인가?
+	제목.innerHTML = "반가워요";
+}
+
+// 3.
+// let 제목3 = document.querySelector("#title") as Element; // 100프로 아니면 잘 안씀
+// optional chaining? innerHtml 이 있는가?
+if (제목?.innerHTML) {
+	제목.innerHTML = "반가워요";
+} //없으면 undefined return
+
+let 링크 = document.querySelector(".link");
+if (링크 instanceof HTMLAnchorElement) {
+	//Element타입 : HTMLHeadingElement,HTMLButtonElement
+	링크.href = "https://kakao.com";
+}
+
+let 버튼 = document.querySelector("#button");
+버튼?.addEventListener("click", function () {});
+//버튼? 안에 addEventListener가 있으면 실행해주고 아니면 undefined를 리턴해줘
