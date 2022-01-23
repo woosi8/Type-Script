@@ -10,5 +10,26 @@
 		<a href="naver.com" class="link">링크</a>
 		<button id="button">버튼</button>
 		<script src="index.js"></script>
+		<script>
+			////////////// Class object문법
+			function 기계(구멍) {
+				//this 새로생성된 오브젝트
+				this.q = 구멍;
+				this.w = "snowball";
+			}
+			기계.prototype.name = "kim"; //이건 부모만 가지고 있다. 자식이 불러 슬수 있음
+
+			var nunu = new 기계("consume");
+			var garen = new 기계("strike");
+
+			// Class 신문법
+			class Hero {
+				constructor(구멍) {
+					this.q = 구멍;
+					this.w = "snowball";
+				}
+			}
+			var ne = new Hero("fireball");
+		</script>
 	</body>
 </html>
