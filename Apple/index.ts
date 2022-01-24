@@ -207,3 +207,87 @@ if (링크 instanceof HTMLAnchorElement) {
 let 버튼 = document.querySelector("#button");
 버튼?.addEventListener("click", function () {});
 //버튼? 안에 addEventListener가 있으면 실행해주고 아니면 undefined를 리턴해줘
+
+class Person2 {
+	data: number = 0; //필드값
+}
+let 사람1 = new Person2();
+사람1.data;
+
+class Person3 {
+	name: string; // TypeScript constructor this다른점 : 쓸떄는 항상 미리 지정해줘야 한다
+	constructor(data: string) {
+		this.name = data;
+	}
+	// prototype 함수 추가
+	함수(a: string): string {
+		console.log("ㅗㅑ");
+		return a;
+	}
+}
+// 함수추가
+// Person3.prototype.함수 = function name(params: type) {};
+
+let 사람2 = new Person3("data");
+사람2.함수("안녕");
+
+//////////////////interface 장점 : extends로 복사가능
+// interface는 중복선언 가능, type & 은 중복선언 불가능 - 외부에서 많이 사용될거 같으면 interface를 선호한다
+// type Square = { color: string; width: number };
+interface Square {
+	color: string;
+	width: number;
+}
+let 네모: Square = { color: "red", width: 100 };
+
+interface Student {
+	name: string;
+}
+interface Teacher extends Student {
+	age: number;
+}
+
+type Animal3 = { name: string };
+type Cat = { age: number } & Animal3; //& 여기선 복사가 아니라 두탑입을 전부 만족하는 타입이라는 뜻 (단점: key값 중복값 잡는게 만들떄가 아니라 만든후에 사용할때 알람을 띄운다)
+
+let 학생: Student = { name: "kim" };
+let 선생: Teacher = { name: "kim", age: 33 };
+
+// /////////////////////////////rest parameter
+
+// destructuring
+// let 변수1 = ["안녕"];
+// let 변수2 = [100];
+let [변수1, 변수2] = ["안녕", 100];
+// , 오브젝트 destructuring
+// let { student:student, age:age } = { student: true, age: 20 };
+let { student, age } = { student: true, age: 20 };
+// let obj= {student:true,age:20}
+
+let 오브젝트 = { student: true, age: 20 };
+function 함수33({ student, age }: { student: boolean; age: number }) {
+	console.log(student, age);
+}
+함수33({ student: true, age: 20 });
+
+type UserType = {
+	user: string;
+	comment: number[];
+	admin: boolean;
+};
+
+function 함수9({ user, comment, admin }: UserType): void {
+	console.log(user, comment, admin);
+}
+함수9({ user: "kim", comment: [3, 5, 4], admin: false });
+
+function 최댓값(...x: number[]) {
+	let result = 0;
+	x.forEach((i) => {
+		if (result < i) {
+			result = i;
+		}
+	});
+	return result;
+}
+console.log(최댓값(4, 6, 3, 2));
