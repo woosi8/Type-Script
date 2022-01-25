@@ -1,3 +1,4 @@
+import { Name } from "./index";
 // tsc -w
 let 이름: string = "kim";
 let 나이: number = 50;
@@ -58,6 +59,7 @@ function 함수6(x: number | string) {
 		array[0] = x;
 	}
 }
+
 // assertion * 무슨 타입이 들어올지 확실할때만 쓴다
 function 함수7(x: number | string) {
 	let array: number[] = [];
@@ -291,3 +293,161 @@ function 최댓값(...x: number[]) {
 	return result;
 }
 console.log(최댓값(4, 6, 3, 2));
+
+//// // // // never : return 이 없어야 한다. endpoint가 없어야함
+// void로 대체 가능, 대신 뭔가 이상할때 never가 뜬다
+function 네버(): never {
+	throw new Error();
+}
+
+function 네버2(params: string) {
+	if (typeof params == "string") {
+		console.log(params);
+	} else {
+		console.log(params);
+	}
+}
+// 함수표혀식은 return타입이 자동으로 never
+let 네버함수 = function () {
+	throw new Error();
+};
+
+//// // // // // // public,private, protected, static
+// protected - 클래스안에서만 사용 ,extends된 calss는 사용가능, 자식들 사용불가능
+// private - 클래스안에서만 사용, extend된 class는 사용불가능, 자식들 사용불가능
+class User2 {
+	public name: string; // public(기본값)- 생성되는 오브젝트들은 public에 자유롭게 접근가능하다
+	private familyName: string = "kim";
+	constructor(a) {
+		this.name = a + this.familyName;
+	}
+	// private 변경해주기
+	이름변경함수() {
+		this.familyName = "park";
+	}
+}
+
+let 유저1 = new User2("park");
+유저1.name = "park";
+유저1.이름변경함수();
+
+// 축약
+class Person22 {
+	constructor(public name: string, public family: string) {}
+}
+
+let 자식3 = new Person22("kim", "gg");
+
+class Prot {
+	protected x = 10;
+	// private으로 주면 아래  extends에서 x를 가져다 쓸수 없다는 차이
+	static y = 20; //부모에게만 있는 존재 - 오브젝트 복사기능 방지 변수 ( Prot.y 가 가능하다)
+}
+
+class NewProt extends Prot {
+	dothis() {
+		this.x = 20; //자식에게 x는 전달되지 않는다 private과 유사성
+	}
+}
+
+// /// static 활용
+// ? 주로 class 안에 간단한 메모를 하거나, 기본 설정값을 입력하거나
+// class로 부터 생성되는 object가 사용할 필요가 없는 변수들을 만들어놓고 싶을 때 사용합니다.
+class Stac {
+	static skill = "js"; //static : 자식에게 전달 안되도록, 안에서 쓰일떄는 this 대신 class명으로 불러온다
+	// intro = this.skill + "전문가입니다";
+	intro = Stac.skill + "전문가입니다";
+}
+
+let 철수 = new Stac();
+console.log(철수);
+
+Stac.skill = "ts"; //이 이후로 변경 - 사실 private이나 protected가 더 안전하다
+let 철수2 = new Stac();
+console.log(철수);
+
+// ////* 정리
+// class User {
+// 	private static x = 10;
+// 	public static y = 20;
+// }
+// 1. 필드값은 원래는 모든 User의 자식들에게 물려주는 속성이지만
+// x와 y에는 static 키워드가 붙었기 때문에 User.x 이런 식으로만 접근해서 쓸 수 있습니다.
+// User의 자식들은 x와 y를 쓸 수 없습니다.
+// 2. private static x는 class 내부에서만 수정가능합니다.
+// 3. public static y는 class 내부 외부 상관없이 수정가능합니다. public 키워드 지워도 똑같이 동작할 듯
+// 4. protected z는 private 키워드와 유사하게 class 내부에서만 사용이 가능한데
+// 약간 범위가 넓어서 extends로 복사한 class 내부에서도 사용할 수 있습니다.
+
+// //// 예시
+// class User {
+// 	private static x = 10;
+// 	public static y = 20;
+
+// 	static addOne(파라미터: number) {
+// 		User.x += 파라미터;
+// 	}
+
+// 	static printX() {
+// 		console.log(User.x);
+// 	}
+// }
+// User.addOne(3);
+// User.addOne(10);
+// User.printX();
+
+// 예시 index.html에 가로 30px, 세로 30px, 배경색이 'red' 의 <div> 박스가 무작위로 배치되어야합니다.
+// class Square {
+// 	constructor (public width :number, public height :number, public color :string){
+// 	}
+// 	draw(){
+// 	  let a = Math.random();
+// 	  let square = `<div style="position:relative;
+// 		top:${a * 400}px;
+// 		left:${a * 400}px;
+// 		width:${this.width}px;
+// 		height : ${this.height}px;
+// 		background:${this.color}"></div>`;
+// 	  document.body.insertAdjacentHTML( 'beforeend', square );
+// 	}
+//   }
+
+//   let 네모 = new Square(30, 30, 'red');
+//   네모.draw()
+//   네모.draw()
+//   네모.draw()
+//   네모.draw()
+
+// // namespace 옛날 방식 : 참조만 하길
+// object와 다르게 생겼는데 그 안에 숨긴 것임
+namespace 네임스페이스 {
+	export type Name = string | number;
+}
+
+let 변수: 네임스페이스.Name = "kim";
+
+let 함수: (a?: object) => void = function (a) {
+	console.log(a);
+};
+
+함수({ abc: "안뇽" });
+
+///////Generic 파라미터로 타입을 입력하는 함수
+
+// function 제네릭<Type, MyType>(x: Type[]): Type {
+function 제네릭<Type>(x: Type[]): Type {
+	return x[0];
+}
+let a = 제네릭<number>([4, 2]);
+let b = 제네릭<string>(["4, 2"]);
+// let a = 제네릭<number, string>([4, 2]);
+
+function 제네릭2<Type>(x: Type) {
+	return x - 1; //string이 들어오면 에러가 난다는 경고메세지
+}
+// 타입파라미터 제한두기 (narrowing 대신)
+function 제네릭3<Type extends number>(x: Type) {
+	return x - 1;
+}
+
+let cc = 제네릭2<number>(100);
