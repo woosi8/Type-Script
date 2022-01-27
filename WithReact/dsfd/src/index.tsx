@@ -1,4 +1,4 @@
-//npm install @reduxjs/toolkit
+//npm install @reduxjs/toolkit  , 리덕스 라이브러리 : createSlice 코드를 신문법으로 사용하기
 
 import React from "react";
 import ReactDOM from "react-dom";
@@ -16,12 +16,18 @@ interface Counter {
 
 const 초기값: Counter = { count: 0 };
 // const 초기값: Counter = { count: 0 };
+
 // Slcie -  함수형으로 reducer 만들기 ,state+reducer
+//신버전 - if문 보다 깔끔한 느낌을줌, state 수정시 복사본만들 필요 없음
 const counterSlice = createSlice({
+	//1
 	name: "counter",
+	//2
 	initialState: 초기값,
+	//3 데이터 수정방법
 	reducers: {
 		increment(state) {
+			//첫째 파마리터는 타입 지정 안해줘도 초기값 :Counter 지정했던 타입이 자동으로 반영된다
 			state.count += 1;
 		},
 		decrement(state) {
@@ -34,7 +40,7 @@ const counterSlice = createSlice({
 	},
 });
 
-//action dispatch() {type:string}
+//action dispatch() {type:string}, 구버전
 function reducer(state = 초기값, action: any) {
 	if (action.type === "증가") {
 		return { count: state.count + 1 };
@@ -56,6 +62,7 @@ let store = configureStore({
 // store의 타입 미리 export 해두기
 export type RootState = ReturnType<typeof store.getState>;
 
+//수정방법 만든거  export
 export let { increment, decrement, incrementByAmount } = counterSlice.actions;
 
 ReactDOM.render(

@@ -4,7 +4,8 @@ import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, increment } from "./index";
 import { Dispatch } from "redux";
-
+// RootState : state 타입 지정해 놓은거 불러오기
+// Dispatch : dispatch() 타입지정
 let a: string = "kim";
 let 박스: JSX.IntrinsicElements["div"] = <div>ㅇㅇㅇ</div>;
 type Prof = { name: string; age: string };
