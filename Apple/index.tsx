@@ -451,3 +451,5 @@ function 제네릭3<Type extends number>(x: Type) {
 }
 
 let cc = 제네릭2<number>(100);
+
+//
