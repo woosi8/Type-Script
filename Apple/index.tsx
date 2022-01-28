@@ -452,4 +452,20 @@ function 제네릭3<Type extends number>(x: Type) {
 
 let cc = 제네릭2<number>(100);
 
-//
+// ///// array에 타입넣기
+let 멍멍: (string | boolean)[] = ["dog", true];
+// 위치까지 엄격하게 규정하기 tuple type
+let 멍멍2: [string, boolean] = ["dog", true];
+let 멍멍3: [string, boolean?] = ["dog"]; //옵션 표현 (순)
+let 멍멍4: [string, boolean, number?] = ["dog", true]; //옵션 표현은 맨 뒤에만 가능
+
+//...rest parameter : 함수가 몇개 들어올지 모를때 , 특징 []array에 담겨서 온다
+// function 래스트(...x: number[]) {}
+// + tuple type
+function 래스트(...x: [number, string]) {} //
+
+// 래스트(12, 3, 4, 5);
+래스트(12, "string");
+
+let arr1 = [1, 2, 3];
+let arr2: [number, number, ...number[]] = [4, 5, ...arr1];
