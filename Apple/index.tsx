@@ -469,3 +469,18 @@ function 래스트(...x: [number, string]) {} //
 
 let arr1 = [1, 2, 3];
 let arr2: [number, number, ...number[]] = [4, 5, ...arr1];
+
+////// TS에서 JS파일 쓰기
+// 변수 재정의 declare
+// 모든 ts 파일은 글로벌 모듈이 된다 (import,export없어도 ts끼리는 쓸수 있다는뜻)
+declare let f: number;
+
+// 로컬 모듈로 만드는법 (한 파일안에 export가 있으면 된다)
+export {};
+let p = 10;
+// 근데 그 안에 글로벌 변수를 만드고 싶어지면
+declare global {
+	type Dog = string;
+}
+////////// d.ts 쓰는 이유 : 타입정의 따로 보관할 파일이 필요하면, config에서 설정해주면 자동으로 저장된다.
+// 2. 타입 레퍼런스 생성하고 싶다면 (참고용)
