@@ -484,3 +484,5 @@ declare global {
 }
 ////////// d.ts 쓰는 이유 : 타입정의 따로 보관할 파일이 필요하면, config에서 설정해주면 자동으로 저장된다.
 // 2. 타입 레퍼런스 생성하고 싶다면 (참고용)
+///////// 타입스크립트에서 jquery 쓰기 - https://www.typescriptlang.org/dt/search?search=
+// npm i @types/lodash --save-dev
