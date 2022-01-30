@@ -235,6 +235,7 @@ let 사람2 = new Person3("data");
 
 //////////////////interface 장점 : extends로 복사가능
 // interface는 중복선언 가능, type & 은 중복선언 불가능 - 외부에서 많이 사용될거 같으면 interface를 선호한다
+// interface는 object 타입지정할 때 쓴다
 // type Square = { color: string; width: number };
 interface Square {
 	color: string;
@@ -486,3 +487,76 @@ declare global {
 // 2. 타입 레퍼런스 생성하고 싶다면 (참고용)
 ///////// 타입스크립트에서 jquery 쓰기 - https://www.typescriptlang.org/dt/search?search=
 // npm i @types/lodash --save-dev
+
+///// index signature : object 한번에 지정하기
+
+interface StringOnly {
+	age: number;
+	//key -모든 string type 속성
+	[key: string]: string | number; // 이건 허용 가능,
+	// [key: string]: string ;
+	// age: string;
+	// location: string;
+}
+
+let usero: StringOnly = {
+	name: "kim",
+	age: 20,
+	location: "seoul",
+};
+
+//중첩 recursive
+
+interface MyType {
+	"font-size": MyType | number;
+}
+
+let css: MyType = {
+	"font-size": {
+		"font-size": {
+			"font-size": 14,
+		},
+	},
+};
+
+interface MyTp {
+	"font-size": number;
+	[key: string]: number | MyType;
+}
+
+let obj = {
+	"font-size": 10,
+	secondary: {
+		"font-size": 12,
+		third: {
+			"font-size": 14,
+		},
+	},
+};
+
+/////keyof
+
+let objj = {
+	name: "kim",
+};
+Object.keys(objj); //key값 전부 출력
+
+interface Perso {
+	age: number;
+	name: string;
+}
+type PersonKeys = keyof Perso; //age | name 유니온 타입으로 나온다
+let ad: PersonKeys = "name"; //오브텍트 key값으로 타입을 체크하고 싶을때 쓰는 연산자
+
+type Car = {
+	color: boolean;
+	model: boolean;
+	price: boolean | number;
+};
+
+// MyType : type parameter - object만들때 가능
+type TypeChanger<MyType> = {
+	[key in keyof MyType]: string;
+};
+
+type newType = TypeChanger<Car>;
