@@ -560,3 +560,35 @@ type TypeChanger<MyType> = {
 };
 
 type newType = TypeChanger<Car>;
+
+////// 조건문 타입 만들기 infer
+
+type Age<T> = T extends string ? string : unknown;
+let ii: Age<string>;
+
+//  파라미터로 array 자료를 입력하면 array의 첫 자료의 타입을 그대로 남겨주고,
+// array 자료가 아니라 다른걸 입력하면 any 타입을 남겨주는 타입
+type FirstItem<T> = T extends any[] ? T[0] : any;
+let age1: FirstItem<string[]>;
+let age2: FirstItem<number>;
+
+// infer  왼쪽에서 타입을 뽑아서 오른쪽에 담아주세요
+type Person5<T> = T extends infer R ? R : unknown;
+type z = Person5<string>;
+
+// infer는 자리를 비교해서 뽑아주기 떄문에 여기서 R은 void가 나온다 : 함수의 return 타입만 뽑고 싶을때 쓰인다
+type 타입추출<T> = T extends () => infer R ? R : unknown;
+type cho = 타입추출<() => void>;
+// 사실 ReturnType 쓰면 알아서 해줌
+type Re = ReturnType<() => void>;
+
+// 1. array 타입을 입력하면
+// 2. array의 첫 자료가 string이면 string 타입을 그대로 남겨주고
+// 3. array의 첫 자료가 string이 아니면 unknown 을 남겨주라
+
+type Age4<T> = T extends [string, ...any] ? T[0] : unknown;
+let age4: Age<[string, number]>;
+let age5: Age<[boolean, number]>;
+// 								infer 는 같은 위치에 있는것을 뽑아온다 . x: number
+type 타입뽑기2<T> = T extends (x: infer R) => any ? R : any;
+type ac = 타입뽑기2<(x: number) => void>;
