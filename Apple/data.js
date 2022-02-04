@@ -1,2 +1,2 @@
-var a = 10;
-var b = { name: "kim" };
+var f = 10;
+var g = { name: "kim" };
