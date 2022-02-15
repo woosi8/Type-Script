@@ -14,6 +14,7 @@ class SimpleEither<L, R> implements Either<L, R> {
 		return this.rightValue;
 	}
 }
+// 사용자가 타입을 지정
 const either: Either<number, number> = new SimpleEither(4, 5);
 either.left(); // 4
 either.right(); //5
