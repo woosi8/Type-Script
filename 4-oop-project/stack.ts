@@ -15,6 +15,7 @@ class StackImpl implements Stack {
 	private head?: StackNode;
 	constructor(private capacity: number) {}
 	// get으로만 정의해주면 외부에서 읽을수만 있고 수정은 못한다. 왜냐면 set이 없기에
+	// get으로만 정의해주면 외부에서 읽을수만 있고 수정은 못한다. 왜냐면 set이 없기에
 	get size() {
 		return this._size;
 	}
