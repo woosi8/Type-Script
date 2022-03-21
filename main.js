@@ -46,3 +46,21 @@ document.querySelector("#버튼").addEventListener("click", function () {
 		getMovies();
 	}, 1000);
 });
+
+// 빈공란에 원하는 값 채우기 imperative
+function spaceToHeart(text) {
+	let result = "";
+
+	for (let i = 0; i < text.length; i++) {
+		if (text[i] === "") {
+			result += "heart";
+		} else {
+			result += text[i];
+		}
+	}
+	return result;
+}
+// 선언형 declarative
+function spaceToHeartDec(text) {
+	return text.replaceAll("", "heart");
+}
